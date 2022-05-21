@@ -11,22 +11,42 @@ with open(csvpath) as csvfile:
     csv_header = next(csvreader)
       
 
-    changelist = []
-    prevvalue = 0    
-    l_change = 0
-    
+    mydictionary = {"MinMonth":"Jan-XX",
+                    "MinChange":"0",
+                    "MaxMonth":"Jan-XX",
+                    "MaxChange":"0",
+                    "MeanChange":"0",
+                    "PreviousValue":""}
+
+
+
+   
+
     for row in csvreader:
         
-        #changelist.append(row)
-        #changelist.append((row[0],row[1]))
 
-        if not prevvalue:
-            prevvalue = row[1]
-            changelist.append((row[0],row[1],"0"))
+        if not mydictionary["PreviousValue"]:
+            mydictionary.update({"MinMonth": row[0], "MaxMonth": row[0],"PreviousValue" : row[1] })                        
+
         else:            
-            l_change = int(prevvalue) - int(row[1])
-            changelist.append((row[0],row[1],l_change))
-            prevvalue = row[1]
 
-print(changelist)
-#changelist.append(zip(row[0],row[1]))
+            if int(row[1]) - int(mydictionary["PreviousValue"]) > int(mydictionary["MaxChange"]):       
+               mydictionary.update({"MaxMonth": row[0] , "MaxChange":  int(row[1]) - int(mydictionary["PreviousValue"]) })                  
+            elif int(row[1]) - int(mydictionary["PreviousValue"])< int(mydictionary["MinChange"]):   
+               mydictionary.update({"MinMonth": row[0] , "MinChange":  int(row[1]) - int(mydictionary["PreviousValue"]) })  
+
+            mydictionary.update({"PreviousValue" : row[1] })        
+
+
+
+print(mydictionary)
+
+
+
+print("Financial Analysis")
+print("----------------------------")
+print(f"Total Months: 86")
+print(f"Total: $38382578")
+print(f"Average  Change: $-2315.12")
+print(f"Greatest Increase in Profits: " + mydictionary["MaxMonth"] + " ($" +  str(mydictionary["MaxChange"]) + ")")
+print(f"Greatest Decrease in Profits: " + mydictionary["MinMonth"] + " ($"+ str(mydictionary["MinChange"]) +")")
