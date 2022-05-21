@@ -51,12 +51,4 @@ with open(output_path, 'w', newline='') as textfile:
     for line in lines:
         textfile.write(line)
         textfile.write('\n')
-
-
-print(lines[0])
-print(lines[1])
-print(lines[2])
-print(lines[3])
-print(lines[4])
-print(lines[5])
-print(lines[6])
+        print(line) 
