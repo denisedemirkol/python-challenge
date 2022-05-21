@@ -36,12 +36,27 @@ with open(csvpath) as csvfile:
             mydictionary.update({"TotalAmount" : int(mydictionary["TotalAmount"])+int(row[1]) })       
             
 
+lines = []
+lines.append ("Financial Analysis")
+lines.append ("----------------------------")
+lines.append (f"Total Months: {len(changelist)+1}")
+lines.append (f"Total: $"+ str(mydictionary["TotalAmount"]))
+lines.append (f"Average  Change: $" +str(   round(mean(changelist),2) ))
+lines.append (f"Greatest Increase in Profits: " + mydictionary["MaxMonth"] + " ($" +  str(mydictionary["MaxChange"]) + ")")
+lines.append (f"Greatest Decrease in Profits: " + mydictionary["MinMonth"] + " ($"+ str(mydictionary["MinChange"]) +")")
+
+output_path = os.path.join( "Analysis", "Analysis.txt")
+with open(output_path, 'w', newline='') as textfile:
+
+    for line in lines:
+        textfile.write(line)
+        textfile.write('\n')
 
 
-print("Financial Analysis")
-print("----------------------------")
-print(f"Total Months: {len(changelist)+1}")
-print(f"Total: $"+ str(mydictionary["TotalAmount"]))
-print(f"Average  Change: $" +str(   round(mean(changelist),2) ))
-print(f"Greatest Increase in Profits: " + mydictionary["MaxMonth"] + " ($" +  str(mydictionary["MaxChange"]) + ")")
-print(f"Greatest Decrease in Profits: " + mydictionary["MinMonth"] + " ($"+ str(mydictionary["MinChange"]) +")")
+print(lines[0])
+print(lines[1])
+print(lines[2])
+print(lines[3])
+print(lines[4])
+print(lines[5])
+print(lines[6])
