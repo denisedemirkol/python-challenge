@@ -24,5 +24,5 @@ try:
 
 
 except IOError:
-    print (f"Could not read file: {selected}. Please enter the file extension. ")
+    print (f"Could not read file: {selected}. Please don't forget to enter the file extension. ")
  
